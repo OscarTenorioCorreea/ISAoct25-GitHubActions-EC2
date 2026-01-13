@@ -2,9 +2,7 @@ name: Despliegue a EC2
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   deploy:
@@ -13,14 +11,14 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Deploy to Server SrvOscar
         uses: easingthemes/ssh-deploy@main
-        env: 
-          SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
-          REMOTE-HOST: ${{secrets.HOST_DNS}}
-          REMOTE_USER: ${{secrets.USERNAME}}
-          TARGET: ${{secrets.TARGET_DIR}}
+        with:
+          sshPrivateKey: ${{ secrets.EC2_SSH_KEY }}
+          remoteHost: ${{ secrets.HOST_DNS }}
+          remoteUser: ${{ secrets.USERNAME }}
+          target: ${{ secrets.TARGET_DIR }}
 
 
